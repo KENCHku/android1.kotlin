@@ -1,5 +1,6 @@
 package kg.geeks.android1kotlin
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,13 +25,19 @@ class FillFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUI()
-        sendData()
+        fabClick()
     }
 
     private fun setUI() {
-       Glide.with(binding.imageViewFf)
-           .load("https://uploads.visitseattle.org/2023/01/11122537/Banner_rachael-jones-media_aerial-destination-photos-24_3.jpg")
-           .into(binding.imageViewFf)
+        Glide.with(binding.imageViewFf)
+            .load("https://uploads.visitseattle.org/2023/01/11122537/Banner_rachael-jones-media_aerial-destination-photos-24_3.jpg")
+            .into(binding.imageViewFf)
+    }
+
+    private fun fabClick() {
+        binding.fab.setOnClickListener(View.OnClickListener {
+            sendData()
+        })
     }
 
     private fun sendData() {
@@ -38,8 +45,12 @@ class FillFragment : Fragment() {
         val bundle = Bundle()
         bundle.putString("name", binding.editTextNameFf.text.toString())
         bundle.putString("email", binding.editTextEmailFf.text.toString())
-        bundle.putString("image", binding.imageViewFf.toString())
+        bundle.putParcelable("image", (binding.imageViewFf.drawable as BitmapDrawable).bitmap)
         fragment.arguments = bundle
 
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view_main, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

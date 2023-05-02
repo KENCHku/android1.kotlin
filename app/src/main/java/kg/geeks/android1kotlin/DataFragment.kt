@@ -1,5 +1,6 @@
 package kg.geeks.android1kotlin
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,11 +30,9 @@ class DataFragment : Fragment() {
     private fun getData() {
         val name = arguments?.getString("name")
         val email = arguments?.getString("email")
-        val image = arguments?.getString("image")
+        val image = arguments?.getParcelable<Bitmap>("image")
 
-
-        Glide.with(binding.imageViewData).load(arguments?.getString("image"))
-            .into(binding.imageViewData)
+        binding.imageViewData.setImageBitmap(image)
         binding.textViewNameData.text = name
         binding.textViewEmailData.text = email
 

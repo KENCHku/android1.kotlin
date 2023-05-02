@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     //NULL
     var date: Int? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(LayoutInflater.from(parent))
